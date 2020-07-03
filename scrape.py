@@ -20,7 +20,7 @@ def download(url1: str, url2: str, dest_folder: str):
         print("Wrong url")
 
 
-student_ID = [] //to get from excel file
+student_ID = [] #to get from excel file
 
 for i in range(len(student_ID)):
     link1 = "http://users.encs.concordia.ca/~kamthan/courses/comp-354/t2/" + str(student_ID)+".pdf"
