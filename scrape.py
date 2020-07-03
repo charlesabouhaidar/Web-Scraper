@@ -20,14 +20,10 @@ def download(url1: str, url2: str, dest_folder: str):
         print("Wrong url")
 
 
-student_ID = 00000000
-extension = [".pdf", ".docx"]
-grades = []
+student_ID = [] //to get from excel file
 
-while(student_ID <=49999999):
+for i in range(len(student_ID)):
     link1 = "http://users.encs.concordia.ca/~kamthan/courses/comp-354/t2/" + str(student_ID)+".pdf"
     link2 = "http://users.encs.concordia.ca/~kamthan/courses/comp-354/t2/" + str(student_ID)+".docx"
-    download(link1, link2, "/Users/charles/PycharmProjects/scraping_comp354_grades/grades")
-    student_ID = student_ID + 1
-    print(link1)
-    print(link2)
+    download(link1, link2, student_ID[i])
+    
