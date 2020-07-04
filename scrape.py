@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 driver = webdriver.Chrome(ChromeDriverManager().install())
 
 # open excel file that has the student IDs from a previous test...
-file = pd.ExcelFile(f"/Users/charles/Downloads/t1_marks.xlsx")
+file = pd.ExcelFile(f"/Users/harcles/Downloads/t1_marks.xlsx")
 workbook = xlrd.open_workbook(file)
 sheet = workbook.sheet_by_name('COMP 354')
 x = []
@@ -37,7 +37,7 @@ def download(url1: str, url2: str, student_id: int):
     if r1.ok:
         print(student_id, " found!")
         
-        path1 = r"/Users/charles/PycharmProjects/scraping_comp354_grades/grades/pdf"
+        path1 = r"/Users/harcles/PycharmProjects/scraping_comp354_grades/grades/pdf"
         filename = url1.split('/')[-1].replace(" ", "_")  # be careful with file names
         file_path = os.path.join(path1, filename)
         
@@ -47,7 +47,7 @@ def download(url1: str, url2: str, student_id: int):
     elif r2.ok:
         print(student_id, " found!")
         
-        path2 = r"/Users/charles/PycharmProjects/scraping_comp354_grades/grades/word"
+        path2 = r"/Users/harcles/PycharmProjects/scraping_comp354_grades/grades/word"
         filename = url2.split('/')[-1].replace(" ", "_")  # be careful with file names
         file_path = os.path.join(path2, filename)
         
@@ -66,25 +66,30 @@ def get_word_grades(file_name):
         if re.search(r"/96", string[i]):
             return string[i]
 
+def get_file_names_from_directory(file_name):
+    list_of_files = []
+    for root, directories, files in os.walk(file_name):
+        for filename in files:
+            filepath = os.path.join(root, filename)
+            list_of_files.append(filepath)
+            
+     return list_of_files
+
+
 # get the names of all the word files that were downloaded 
-file_paths1 = []
-for root, directories, files in os.walk("/Users/charles/PycharmProjects/scraping_comp354_grades/grades/word"):
-    for filename in files:
-        filepath1 = os.path.join(root, filename)
-        file_paths1.append(filepath1)
-
-        
+word_files = get_file_names_from_directory("/Users/harcles/PycharmProjects/scraping_comp354_grades/grades/word")
+                                          
 # get the names of all the PDF files that were downloaded   
-file_paths2 = []
-for root, directories, files in os.walk("/Users/charles/PycharmProjects/scraping_comp354_grades/grades/pdf"):
-    for filename in files:
-        filepath2 = os.path.join(root, filename)
-        file_paths2.append(filepath2)
+pdf_files = get_file_names_from_directory("/Users/harcles/PycharmProjects/scraping_comp354_grades/grades/pdf")
 
-# get all grades
+# get all grades from DOCX files
 grades = []
-for i in file_paths1:
+for i in word_files:
     grades.append(get_word_grades(i))
+
+    
+# need to find a way to read PDF files to get grade as well...
+
 
 # update grades since some of them were None
 final_grades = []
@@ -113,7 +118,7 @@ for i in final_grades:
         
 print("FOR DOCX FILES: ")
 # number of files scrapped
-print("Number of doc files: ", len(file_paths1))
+print("Number of doc files: ", len(word_files))
 
 # highest grade in the list
 print("Highest grade: ", max(final_grades))
