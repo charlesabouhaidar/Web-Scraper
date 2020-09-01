@@ -24,8 +24,6 @@ student_ids = []
 for i in range(len(x)):
     student_ids.append(int(x[i].value))
 
-print(student_ids)
-
 
 def download(url1: str, url2: str, student_id: int):
     r1 = requests.get(url1)
@@ -54,7 +52,7 @@ def get_word_grades(file_name):
     string = docx2txt.process(file_name)
     string = string.split()
     for i in range(len(string)):
-        if re.search(r"/96", string[i]):
+        if re.search(r"/100", string[i]):
             return string[i]
 
 # delete all contents of directory for privacy reasons
