@@ -22,6 +22,8 @@ and add it's location in `PATH/TO/EXCEL/FILE/OF/PREVIOUS/TEST/CONTAINING/STUDENT
 
 6. If you don't want to automatically delete the files downloaded, just remove the last 2 lines of the program
 
+7. Modify the remaining parts according to what you want to display
+
 7. Be sure you are in the correct directory and run the program with this command:
 
 `python3 scrape.py`
